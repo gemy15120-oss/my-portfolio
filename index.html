@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ahmed Shahin | Web Developer</title>
+  <script>
+    // Apply saved theme (or the device setting) before the page paints, to avoid a flash
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem('theme'); } catch (e) {}
+      if (!t) { t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+      document.documentElement.setAttribute('data-bs-theme', t);
+    })();
+  </script>
+  <meta name="description" content="Web developer portfolio: skills, projects and contact details.">
+
+  <!-- Bootstrap 5.3 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Source+Sans+3:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ink: #12263a;
+      --bg: #ffffff;
+      --surface: #ffffff;
+      --mist: #f3f6f8;
+      --line: #d9e1e7;
+      --teal: #0f5c63;
+      --sand: #e8b04b;
+      --btn: #0f5c63;
+      --btn-hover: #0b474d;
+      --nav-bg: rgba(255,255,255,.92);
+      --contact-bg: #12263a;
+      --bs-body-font-family: "Source Sans 3", system-ui, sans-serif;
+      --bs-body-color: var(--ink);
+      --bs-body-bg: var(--bg);
+      --bs-link-color: var(--teal);
+      --bs-link-hover-color: var(--teal);
+    }
+    [data-bs-theme="dark"] {
+      --ink: #e4ecf2;
+      --bg: #0d1b2a;
+      --surface: #14293d;
+      --mist: #102235;
+      --line: #27405a;
+      --teal: #5ccad3;
+      --nav-bg: rgba(13,27,42,.92);
+      --contact-bg: #091521;
+    }
+    html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+    h1, h2, h3, .navbar-brand { font-family: "Sora", "Source Sans 3", sans-serif; }
+    body { line-height: 1.7; }
+    p { max-width: 62ch; }
+
+    .navbar { background: var(--nav-bg); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+    .navbar-brand { font-weight: 700; color: var(--ink); }
+    .nav-link { color: var(--ink); font-weight: 500; }
+    .nav-link:hover, .nav-link:focus-visible { color: var(--teal); }
+
+    .btn-main { background: var(--btn); color: #fff; border: 2px solid var(--btn); border-radius: 6px; padding: .6rem 1.4rem; font-weight: 700; }
+    .btn-main:hover { background: var(--btn-hover); border-color: var(--btn-hover); color: #fff; }
+    .btn-line { background: transparent; color: var(--ink); border: 2px solid var(--ink); border-radius: 6px; padding: .6rem 1.4rem; font-weight: 700; }
+    .btn-line:hover { background: var(--ink); color: var(--bg); }
+    :focus-visible { outline: 3px solid var(--sand); outline-offset: 2px; }
+
+    /* Hero */
+    .hero { padding: 7rem 0 4.5rem; background: var(--mist); border-bottom: 1px solid var(--line); }
+    .hero h1 { font-size: clamp(2.3rem, 6vw, 4.2rem); font-weight: 700; line-height: 1.12; letter-spacing: -.02em; margin-bottom: 1.2rem; }
+    .hero .role { font-size: 1.25rem; color: var(--teal); font-weight: 700; }
+    .avatar { width: 100%; max-width: 330px; aspect-ratio: 1; object-fit: cover; border-radius: 50% 50% 50% 8px; border: 6px solid var(--bg); box-shadow: 14px 14px 0 var(--sand); }
+    .hero-in { animation: rise .7s ease both; }
+    @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
+    section.block { padding: 5rem 0; }
+    .block h2 { font-size: 2rem; font-weight: 700; margin-bottom: 2.2rem; }
+    .block h2::after { content: ""; display: block; width: 56px; height: 4px; background: var(--sand); margin-top: .6rem; }
+
+    /* Skills */
+    .skill-group { border-left: 4px solid var(--teal); padding-left: 1.1rem; margin-bottom: 1.8rem; }
+    .skill-group h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: .7rem; }
+    .chip { display: inline-block; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: .15rem .8rem; margin: 0 .4rem .5rem 0; font-weight: 500; }
+
+    /* Projects */
+    .project { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; height: 100%; background: var(--surface); transition: transform .2s; }
+    .project:hover { transform: translateY(-4px); }
+    .project img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; background: var(--mist); display: block; }
+    .project .body { padding: 1.2rem 1.3rem 1.4rem; }
+    .project h3 { font-size: 1.15rem; font-weight: 700; }
+    .project .tags { font-size: .92rem; color: var(--teal); font-weight: 500; }
+    .project a { font-weight: 700; text-decoration: none; margin-right: 1rem; }
+    .project a:hover { text-decoration: underline; }
+
+    /* Contact */
+    .contact { background: var(--contact-bg); color: #fff; }
+    .contact h2 { color: #fff; }
+    .contact a { color: #fff; text-decoration: none; }
+    .contact a:hover { color: var(--sand); }
+    .contact .item { display: flex; align-items: center; gap: .9rem; margin-bottom: 1.1rem; font-size: 1.1rem; }
+    .contact .item i { width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,.1); display: grid; place-items: center; color: var(--sand); font-size: 1.15rem; }
+    .contact .form-control { border-radius: 6px; border: 1px solid rgba(255,255,255,.22); background: rgba(255,255,255,.08); color: #fff; padding: .75rem 1rem; }
+    .contact .form-control:focus { background: rgba(255,255,255,.14); color: #fff; border-color: var(--sand); box-shadow: none; }
+    .contact .btn-sand { background: var(--sand); color: #12263a; font-weight: 700; border: 0; border-radius: 6px; padding: .7rem 1.6rem; }
+    .contact .btn-sand:hover { background: #f1c26a; }
+    footer { background: #0c1b2a; color: #9fb0bf; padding: 1.2rem 0; font-size: .95rem; }
+
+    .theme-btn { border: 1px solid var(--line); color: var(--ink); border-radius: 6px; width: 40px; height: 40px; display: inline-grid; place-items: center; padding: 0; background: transparent; }
+    .theme-btn:hover { border-color: var(--teal); color: var(--teal); }
+    [data-bs-theme="dark"] .navbar-toggler-icon { filter: invert(1); }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .hero-in { animation: none; }
+      .project { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-md fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#home">Ahmed Shahin</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+          <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+        <button id="themeToggle" class="theme-btn ms-md-3 my-2 my-md-0" type="button" aria-label="Switch to dark mode">
+          <i class="bi bi-moon-stars" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header id="home" class="hero">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-md-7 hero-in">
+          <p class="role mb-2">Web Developer</p>
+          <h1>I build fast, clear and easy-to-use websites.</h1>
+          <p class="fs-5 mb-4">I'm Ahmed Shahin, a web developer based in Egypt. I turn ideas into sites that work smoothly on phones and desktops.</p>
+          <a href="#projects" class="btn btn-main me-2">View my projects</a>
+          <a href="#contact" class="btn btn-line">Contact me</a>
+        </div>
+        <div class="col-md-5 text-center hero-in">
+          <!-- Replace the path with your own photo -->
+          <img class="avatar" src="my photo.jpg" alt="Portrait of Ahmed Shahin"
+               onerror="this.onerror=null;this.src='https://placehold.co/400x400/0f5c63/ffffff?text=Your+Photo'">
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- About -->
+  <section id="about" class="block">
+    <div class="container">
+      <h2>About me</h2>
+      <div class="row">
+        <div class="col-lg-8">
+          <p class="fs-5">I build websites with attention to detail: clean code, responsive layouts and fast load times. I've worked on business sites, online stores and dashboards, and I enjoy learning new tools and putting them to use in real projects.</p>
+          <p class="mb-0">i have two years of experience, i am proud of my work, and i am looking for (a job, freelance work, collaboration).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="block" style="background:var(--mist)">
+    <div class="container">
+      <h2>Skills</h2>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="skill-group">
+            <h3>Front-end</h3>
+            <span class="chip">HTML5</span><span class="chip">CSS3</span><span class="chip">JavaScript</span>
+            <span class="chip">Bootstrap</span><span class="chip">Responsive Design</span>
+          </div>
+          <div class="skill-group">
+            <h3>Back-end &amp; databases</h3>
+            <span class="chip">PHP</span><span class="chip">Node.js</span><span class="chip">MySQL</span><span class="chip">REST APIs</span>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="skill-group">
+            <h3>Tools</h3>
+            <span class="chip">Git &amp; GitHub</span><span class="chip">VS Code</span><span class="chip">Figma</span><span class="chip">npm</span>
+          </div>
+          <div class="skill-group">
+            <h3>Professional skills</h3>
+            <span class="chip">Problem solving</span><span class="chip">Teamwork</span>
+            <span class="chip">Meeting deadlines</span><span class="chip">Performance &amp; SEO</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="block">
+    <div class="container">
+      <h2>Projects</h2>
+      <div class="row g-4">
+
+        <div class="col-md-6 col-lg-4">
+          <article class="project">
+            <img src="images/project-1.jpg" alt="Screenshot of the company website project" loading="lazy"
+                 onerror="this.onerror=null;this.src='https://placehold.co/600x400/e8b04b/12263a?text=Project+1'">
+            <div class="body">
+              <h3>Company website</h3>
+              <p class="tags mb-2">HTML · Bootstrap · JavaScript</p>
+              <p>A responsive site presenting the company's services, with a contact form.</p>
+              <a href="#" target="_blank" rel="noopener">Live demo</a>
+              <a href="#" target="_blank" rel="noopener">Source code</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <article class="project">
+            <img src="images/project-2.jpg" alt="Screenshot of the online store project" loading="lazy"
+                 onerror="this.onerror=null;this.src='https://placehold.co/600x400/0f5c63/ffffff?text=Project+2'">
+            <div class="body">
+              <h3>Online store</h3>
+              <p class="tags mb-2">PHP · MySQL · Bootstrap</p>
+              <p>Product listings, a shopping cart and an admin panel for managing orders.</p>
+              <a href="#" target="_blank" rel="noopener">Live demo</a>
+              <a href="#" target="_blank" rel="noopener">Source code</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <article class="project">
+            <img src="images/project-3.jpg" alt="Screenshot of the dashboard project" loading="lazy"
+                 onerror="this.onerror=null;this.src='https://placehold.co/600x400/12263a/ffffff?text=Project+3'">
+            <div class="body">
+              <h3>Admin dashboard</h3>
+              <p class="tags mb-2">JavaScript · REST API</p>
+              <p>A dashboard showing data in tables and charts, with search and filters.</p>
+              <a href="#" target="_blank" rel="noopener">Live demo</a>
+              <a href="#" target="_blank" rel="noopener">Source code</a>
+            </div>
+          </article>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="block contact">
+    <div class="container">
+      <h2>Contact me</h2>
+      <div class="row g-5">
+        <div class="col-md-5">
+          <div class="item"><i class="bi bi-envelope"></i><a href="mailto:gemy15120@gmail.com">gemy15120@gmail.com</a></div>
+          <div class="item"><i class="bi bi-telephone"></i><a href="tel:+201002938359">+201002938359</a></div>
+          <div class="item"><i class="bi bi-whatsapp"></i><a href="https://wa.me/201002938359" target="_blank" rel="noopener">WhatsApp</a></div>
+          <div class="item"><i class="bi bi-github"></i><a href="https://github.com/gemy15120-oss" target="_blank" rel="noopener">GitHub</a></div>
+          <div class="item"><i class="bi bi-linkedin"></i><a href="https://www.linkedin.com/in/ahmed-gamal-b005793a1/" target="_blank" rel="noopener">LinkedIn</a></div>
+          <div class="item"><i class="bi bi-geo-alt"></i><span>Egypt</span></div>
+        </div>
+        <div class="col-md-7">
+          <!-- Opens the visitor's email app with the message filled in.
+               For real sending from the site, use Formspree or a PHP backend. -->
+          <form id="contactForm" novalidate>
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" class="form-control" id="name" required>
+            </div>
+            <div class="mb-3">
+              <label for="msg" class="form-label">Message</label>
+              <textarea class="form-control" id="msg" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-sand">Send message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container text-center">&copy; <span id="year"></span> Ahmed Shahin. All rights reserved.</div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Dark / light mode toggle
+    (function () {
+      var root = document.documentElement;
+      var btn = document.getElementById('themeToggle');
+      var icon = btn.querySelector('i');
+      function sync() {
+        var dark = root.getAttribute('data-bs-theme') === 'dark';
+        icon.className = dark ? 'bi bi-sun' : 'bi bi-moon-stars';
+        btn.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+      }
+      btn.addEventListener('click', function () {
+        var next = root.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-bs-theme', next);
+        try { localStorage.setItem('theme', next); } catch (e) {}
+        sync();
+      });
+      sync();
+    })();
+
+    document.getElementById('contactForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = document.getElementById('name').value.trim();
+      var msg = document.getElementById('msg').value.trim();
+      if (!name || !msg) { return; }
+      var subject = encodeURIComponent('Message from ' + name);
+      var body = encodeURIComponent(msg);
+      window.location.href = 'mailto:gemy15120@gmail.com?subject=' + subject + '&body=' + body;
+    });
+  </script>
+</body>
+</html>
